@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "jobswp-2025/job-list",
+	"title": "Job List",
+	"category": "theme",
+	"description": "Tabular list of jobs in the current archive query (category, search). Renders rows with date, title, type, location.",
+	"textdomain": "jobswp-2025",
+	"supports": {
+		"html": false,
+		"inserter": true,
+		"align": false
+	},
+	"render": "file:./render.php"
+}

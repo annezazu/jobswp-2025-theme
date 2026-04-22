@@ -1,0 +1,16 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "jobswp-2025/job-browser",
+	"title": "Job Browser",
+	"category": "theme",
+	"description": "Homepage job browser: hero stats, filter pills, and job cards grid. Filtering is client-side via the Interactivity API.",
+	"textdomain": "jobswp-2025",
+	"supports": {
+		"html": false,
+		"inserter": true,
+		"align": false
+	},
+	"render": "file:./render.php",
+	"viewScriptModule": "file:./view.js"
+}

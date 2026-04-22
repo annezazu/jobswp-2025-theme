@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "jobswp-2025/sidebar-category-list",
+	"title": "Position Types Sidebar",
+	"category": "theme",
+	"description": "Sidebar widget listing all job categories with an 'All Openings' link at the top. Used on archive and search pages.",
+	"textdomain": "jobswp-2025",
+	"supports": {
+		"html": false,
+		"inserter": true,
+		"align": false
+	},
+	"render": "file:./render.php"
+}

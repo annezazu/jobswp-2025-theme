@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "jobswp-2025/archive-header",
+	"title": "Archive Header",
+	"category": "theme",
+	"description": "Header row for job category and search archive pages — category name, job count, RSS link, column labels.",
+	"textdomain": "jobswp-2025",
+	"supports": {
+		"html": false,
+		"inserter": true,
+		"align": false
+	},
+	"render": "file:./render.php"
+}

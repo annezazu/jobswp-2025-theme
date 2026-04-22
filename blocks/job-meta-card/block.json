@@ -1,0 +1,16 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "jobswp-2025/job-meta-card",
+	"title": "Job Meta Card",
+	"category": "theme",
+	"description": "Sidebar card listing company, job type, location, budget and how to apply for a job post.",
+	"textdomain": "jobswp-2025",
+	"usesContext": ["postId", "postType"],
+	"supports": {
+		"html": false,
+		"align": false,
+		"inserter": true
+	},
+	"render": "file:./render.php"
+}

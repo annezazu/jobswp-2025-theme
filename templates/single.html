@@ -1,0 +1,56 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+
+	<!-- wp:group {"className":"breadcrumb","layout":{"type":"flex","flexWrap":"nowrap"}} -->
+	<div class="wp-block-group breadcrumb">
+		<!-- wp:paragraph -->
+		<p><a href="/">Jobs</a></p>
+		<!-- /wp:paragraph -->
+
+		<!-- wp:paragraph {"className":"separator"} -->
+		<p class="separator">/</p>
+		<!-- /wp:paragraph -->
+
+		<!-- wp:post-title {"level":0} /-->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- wp:group {"className":"job-detail","layout":{"type":"default"}} -->
+	<div class="wp-block-group job-detail">
+
+		<!-- wp:group {"className":"job-detail__main","layout":{"type":"default"}} -->
+		<div class="wp-block-group job-detail__main">
+
+			<!-- wp:group {"className":"job-detail__header","layout":{"type":"default"}} -->
+			<div class="wp-block-group job-detail__header">
+				<!-- wp:post-title {"level":1} /-->
+
+				<!-- wp:group {"className":"job-detail__meta","layout":{"type":"flex","flexWrap":"wrap"}} -->
+				<div class="wp-block-group job-detail__meta">
+					<!-- wp:post-date {"isLink":true,"className":"posted-on"} /-->
+					<!-- wp:post-terms {"term":"job_category","className":"job-categories"} /-->
+				</div>
+				<!-- /wp:group -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group {"className":"job-detail__body","layout":{"type":"default"}} -->
+			<div class="wp-block-group job-detail__body">
+				<!-- wp:post-content /-->
+			</div>
+			<!-- /wp:group -->
+
+		</div>
+		<!-- /wp:group -->
+
+		<!-- wp:jobswp-2025/job-meta-card /-->
+
+	</div>
+	<!-- /wp:group -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->
