@@ -8,8 +8,8 @@
  * Inserter: yes
  */
 ?>
-<!-- wp:group {"className":"hero","layout":{"type":"default"}} -->
-<section class="wp-block-group hero">
+<!-- wp:group {"align":"full","className":"hero","layout":{"type":"default"}} -->
+<section class="wp-block-group alignfull hero">
 	<!-- wp:group {"className":"hero__inner","layout":{"type":"default"}} -->
 	<div class="wp-block-group hero__inner">
 		<!-- wp:heading {"level":1} -->
