@@ -494,7 +494,13 @@ label {
 	display: block;
 }
 
-.mobile-overlay {
+/*
+ * Selector is qualified with .wp-block-group so we win the specificity
+ * fight against core's `body .is-layout-flex { display: flex }` — the
+ * block-layout class gets added to every flex-layout wp:group and would
+ * otherwise keep the overlay visible on desktop.
+ */
+.wp-block-group.mobile-overlay {
 	position: fixed;
 	inset: 0;
 	top: var(--wp-admin--admin-bar--height, 0px);
@@ -507,7 +513,7 @@ label {
 	display: none;
 }
 
-.mobile-overlay.is-open {
+.wp-block-group.mobile-overlay.is-open {
 	display: flex;
 }
 
