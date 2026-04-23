@@ -442,13 +442,13 @@ label {
 .site-header__right {
 	display: flex;
 	align-items: center;
-	gap: var(--space-30);
+	gap: var(--space-40);
 }
 
 .site-header__nav {
 	display: flex;
 	align-items: center;
-	gap: var(--space-30);
+	gap: var(--space-40);
 }
 
 .site-header__nav a {
@@ -461,14 +461,6 @@ label {
 
 .site-header__nav a:hover {
 	color: var(--color-blueberry-1);
-}
-
-.site-header__nav a.btn-primary {
-	color: var(--color-white);
-}
-
-.site-header__nav a.btn-primary:hover {
-	color: var(--color-white);
 }
 
 .site-header__nav a.active {

@@ -13,12 +13,21 @@
 		</a>
 		<!-- /wp:html -->
 
-		<!-- wp:navigation {"overlayMenu":"mobile","className":"site-header__nav","layout":{"type":"flex","justifyContent":"right"}} -->
-			<!-- wp:navigation-link {"label":"Jobs","url":"/"} /-->
-			<!-- wp:navigation-link {"label":"FAQ","url":"/faq/"} /-->
-			<!-- wp:navigation-link {"label":"Feedback","url":"/feedback/"} /-->
-			<!-- wp:navigation-link {"label":"Post a Job","url":"/post-a-job/","className":"btn btn-primary btn-sm"} /-->
-		<!-- /wp:navigation -->
+		<!-- wp:group {"className":"site-header__right","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"center"}} -->
+		<div class="wp-block-group site-header__right">
+
+			<!-- wp:navigation {"overlayMenu":"mobile","className":"site-header__nav","layout":{"type":"flex","justifyContent":"right"}} -->
+				<!-- wp:navigation-link {"label":"Jobs","url":"/"} /-->
+				<!-- wp:navigation-link {"label":"FAQ","url":"/faq/"} /-->
+				<!-- wp:navigation-link {"label":"Feedback","url":"/feedback/"} /-->
+			<!-- /wp:navigation -->
+
+			<!-- wp:html -->
+			<a class="btn btn-primary btn-sm" href="/post-a-job/">Post a Job</a>
+			<!-- /wp:html -->
+
+		</div>
+		<!-- /wp:group -->
 
 	</div>
 	<!-- /wp:group -->
