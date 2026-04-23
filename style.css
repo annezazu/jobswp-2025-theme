@@ -494,10 +494,6 @@ label {
 	display: block;
 }
 
-.mobile-overlay[hidden] {
-	display: none;
-}
-
 .mobile-overlay {
 	position: fixed;
 	inset: 0;
@@ -506,9 +502,13 @@ label {
 	background: var(--color-white);
 	padding: var(--space-30) var(--space-20);
 	overflow-y: auto;
-	display: flex;
 	flex-direction: column;
 	gap: var(--space-30);
+	display: none;
+}
+
+.mobile-overlay.is-open {
+	display: flex;
 }
 
 .mobile-overlay__header {

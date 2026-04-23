@@ -20,8 +20,20 @@
 			return;
 		}
 
+		// Apply dialog semantics here rather than in the template part so the
+		// wp:group block's saved markup matches what the Site Editor expects
+		// to parse (role/aria attrs aren't wp:group block attributes).
+		// Visibility is handled by CSS via the `.is-open` class — toggling a
+		// class avoids the flash-of-visible-content the `hidden` attribute
+		// would cause before JS runs.
+		overlay.setAttribute( 'role', 'dialog' );
+		overlay.setAttribute( 'aria-modal', 'true' );
+		if ( ! overlay.hasAttribute( 'aria-label' ) ) {
+			overlay.setAttribute( 'aria-label', 'Site menu' );
+		}
+
 		function open() {
-			overlay.removeAttribute( 'hidden' );
+			overlay.classList.add( 'is-open' );
 			document.body.classList.add( 'has-mobile-overlay-open' );
 			openers.forEach( function ( btn ) {
 				btn.setAttribute( 'aria-expanded', 'true' );
@@ -34,7 +46,7 @@
 		}
 
 		function close() {
-			overlay.setAttribute( 'hidden', '' );
+			overlay.classList.remove( 'is-open' );
 			document.body.classList.remove( 'has-mobile-overlay-open' );
 			openers.forEach( function ( btn ) {
 				btn.setAttribute( 'aria-expanded', 'false' );
@@ -50,7 +62,7 @@
 		} );
 
 		document.addEventListener( 'keydown', function ( event ) {
-			if ( event.key === 'Escape' && ! overlay.hasAttribute( 'hidden' ) ) {
+			if ( event.key === 'Escape' && overlay.classList.contains( 'is-open' ) ) {
 				close();
 			}
 		} );
