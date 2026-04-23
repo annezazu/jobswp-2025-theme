@@ -283,14 +283,14 @@ ul {
 	border-radius: var(--radius);
 }
 
-.hero__actions .wp-block-button[class*="is-style-outline"] > .wp-block-button__link {
+.hero__actions .wp-block-button.is-style-outline > .wp-block-button__link {
 	background: transparent;
 	color: var(--color-blueberry-1);
 	border-color: currentColor;
 }
 
-.hero__actions .wp-block-button[class*="is-style-outline"] > .wp-block-button__link:hover,
-.hero__actions .wp-block-button[class*="is-style-outline"] > .wp-block-button__link:focus {
+.hero__actions .wp-block-button.is-style-outline > .wp-block-button__link:hover,
+.hero__actions .wp-block-button.is-style-outline > .wp-block-button__link:focus {
 	background: var(--color-deep-blueberry);
 	color: var(--color-white);
 	border-color: var(--color-deep-blueberry);
