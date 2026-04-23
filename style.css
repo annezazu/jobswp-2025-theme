@@ -1134,6 +1134,7 @@ body.has-mobile-overlay-open {
 
 .post-job {
 	margin-top: var(--space-30);
+	display: flow-root;
 }
 
 .post-job label {
@@ -1217,8 +1218,10 @@ body.has-mobile-overlay-open {
 
 input[type="button"].submit-job,
 input[type="submit"].submit-job {
-	float: right;
-	margin-top: var(--space-20);
+	display: block;
+	width: fit-content;
+	margin-left: auto;
+	margin-top: var(--space-30);
 	cursor: pointer;
 }
 
