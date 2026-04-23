@@ -163,10 +163,20 @@ function jobswp_2025_mark_current_nav_link( $block_content, $block ) {
 		return $block_content;
 	}
 
-	$link_url    = trailingslashit( esc_url_raw( home_url( $block['attrs']['url'] ) ) );
-	$current_url = trailingslashit( esc_url_raw( home_url( add_query_arg( null, null ) ) ) );
+	// Compare path components only — query strings (?preview=1, ?paged=2, …)
+	// and fragments should not affect the active-state match.
+	$link_path    = trailingslashit( (string) wp_parse_url( $block['attrs']['url'], PHP_URL_PATH ) );
+	$request_path = trailingslashit( (string) wp_parse_url( $_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH ) );
 
-	if ( $link_url === $current_url ) {
+	// Subtract the site's path prefix so subdirectory installs
+	// (home_url() = https://example.com/jobs) don't double-count it.
+	$home_path = trailingslashit( (string) wp_parse_url( home_url(), PHP_URL_PATH ) );
+	if ( '/' !== $home_path && 0 === strpos( $request_path, $home_path ) ) {
+		$request_path = '/' . ltrim( substr( $request_path, strlen( $home_path ) ), '/' );
+		$request_path = trailingslashit( $request_path );
+	}
+
+	if ( $link_path === $request_path ) {
 		$block_content = preg_replace( '/<a\b/', '<a aria-current="page"', $block_content, 1 );
 	}
 
