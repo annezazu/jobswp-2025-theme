@@ -269,6 +269,33 @@ ul {
 	font-size: var(--font-size-sm);
 }
 
+/*
+ * Hero CTAs: the two buttons (fill + outline) must render identical outer
+ * dimensions. Core ships several is-style-outline rules (including a
+ * deduplicated `is-style-outline--2` variant) with smaller padding that
+ * would otherwise shrink the outline button. Explicitly set padding and
+ * border on both so they stay paired, and use the fill color for the
+ * outline's text/border.
+ */
+.hero__actions .wp-block-button > .wp-block-button__link {
+	padding: 14px 32px;
+	border: 2px solid transparent;
+	border-radius: var(--radius);
+}
+
+.hero__actions .wp-block-button[class*="is-style-outline"] > .wp-block-button__link {
+	background: transparent;
+	color: var(--color-blueberry-1);
+	border-color: currentColor;
+}
+
+.hero__actions .wp-block-button[class*="is-style-outline"] > .wp-block-button__link:hover,
+.hero__actions .wp-block-button[class*="is-style-outline"] > .wp-block-button__link:focus {
+	background: var(--color-deep-blueberry);
+	color: var(--color-white);
+	border-color: var(--color-deep-blueberry);
+}
+
 
 /* ============================================
    Form Inputs
