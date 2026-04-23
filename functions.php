@@ -48,6 +48,17 @@ function jobswp_2025_enqueue_assets() {
 		array(),
 		filemtime( get_stylesheet_directory() . '/style.css' )
 	);
+
+	$overlay_js = get_template_directory() . '/js/mobile-overlay.js';
+	if ( file_exists( $overlay_js ) ) {
+		wp_enqueue_script(
+			'jobswp-2025-mobile-overlay',
+			get_template_directory_uri() . '/js/mobile-overlay.js',
+			array(),
+			filemtime( $overlay_js ),
+			array( 'strategy' => 'defer' )
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'jobswp_2025_enqueue_assets' );
 
@@ -149,6 +160,40 @@ function jobswp_2025_add_page_slug_to_body_class( $classes ) {
 	return $classes;
 }
 add_filter( 'body_class', 'jobswp_2025_add_page_slug_to_body_class' );
+
+/**
+ * Mark the nav link that matches the current request with aria-current="page".
+ *
+ * core/navigation-link does not add an active-state marker of its own, so the
+ * classic theme's FAQ/Feedback highlighting disappears when ported as-is to a
+ * block theme. Compare the link's resolved URL to the current request URL and
+ * inject aria-current on exact matches; style.css targets the attribute.
+ */
+function jobswp_2025_mark_current_nav_link( $block_content, $block ) {
+	if ( empty( $block['attrs']['url'] ) || false === strpos( $block_content, '<a ' ) ) {
+		return $block_content;
+	}
+
+	// Compare path components only — query strings (?preview=1, ?paged=2, …)
+	// and fragments should not affect the active-state match.
+	$link_path    = trailingslashit( (string) wp_parse_url( $block['attrs']['url'], PHP_URL_PATH ) );
+	$request_path = trailingslashit( (string) wp_parse_url( $_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH ) );
+
+	// Subtract the site's path prefix so subdirectory installs
+	// (home_url() = https://example.com/jobs) don't double-count it.
+	$home_path = trailingslashit( (string) wp_parse_url( home_url(), PHP_URL_PATH ) );
+	if ( '/' !== $home_path && 0 === strpos( $request_path, $home_path ) ) {
+		$request_path = '/' . ltrim( substr( $request_path, strlen( $home_path ) ), '/' );
+		$request_path = trailingslashit( $request_path );
+	}
+
+	if ( $link_path === $request_path ) {
+		$block_content = preg_replace( '/<a\b/', '<a aria-current="page"', $block_content, 1 );
+	}
+
+	return $block_content;
+}
+add_filter( 'render_block_core/navigation-link', 'jobswp_2025_mark_current_nav_link', 10, 2 );
 
 /**
  * Register theme-provided dynamic blocks.

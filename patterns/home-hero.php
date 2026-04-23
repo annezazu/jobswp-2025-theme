@@ -8,8 +8,8 @@
  * Inserter: yes
  */
 ?>
-<!-- wp:group {"className":"hero","layout":{"type":"default"}} -->
-<section class="wp-block-group hero">
+<!-- wp:group {"align":"full","className":"hero","layout":{"type":"default"}} -->
+<section class="wp-block-group alignfull hero">
 	<!-- wp:group {"className":"hero__inner","layout":{"type":"default"}} -->
 	<div class="wp-block-group hero__inner">
 		<!-- wp:heading {"level":1} -->
@@ -28,12 +28,12 @@
 
 		<!-- wp:buttons {"className":"hero__actions"} -->
 		<div class="wp-block-buttons hero__actions">
-			<!-- wp:button {"className":"btn btn-primary is-style-fill"} -->
-			<div class="wp-block-button btn btn-primary is-style-fill"><a class="wp-block-button__link wp-element-button" href="#jobs"><?php esc_html_e( 'Browse Jobs', 'jobswp-2025' ); ?></a></div>
+			<!-- wp:button -->
+			<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#jobs"><?php esc_html_e( 'Browse Jobs', 'jobswp-2025' ); ?></a></div>
 			<!-- /wp:button -->
 
-			<!-- wp:button {"className":"btn btn-outline is-style-outline"} -->
-			<div class="wp-block-button btn btn-outline is-style-outline"><a class="wp-block-button__link wp-element-button" href="/post-a-job/"><?php esc_html_e( 'Post a Job', 'jobswp-2025' ); ?></a></div>
+			<!-- wp:button {"className":"is-style-outline"} -->
+			<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/post-a-job/"><?php esc_html_e( 'Post a Job', 'jobswp-2025' ); ?></a></div>
 			<!-- /wp:button -->
 		</div>
 		<!-- /wp:buttons -->

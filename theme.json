@@ -119,6 +119,23 @@
 					"text": "var(--wp--preset--color--white)",
 					"background": "var(--wp--preset--color--blueberry-1)"
 				},
+				"spacing": {
+					"padding": {
+						"top": "14px",
+						"right": "32px",
+						"bottom": "14px",
+						"left": "32px"
+					}
+				},
+				"border": {
+					"radius": "var(--wp--custom--radius)"
+				},
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--body)",
+					"fontSize": "var(--wp--preset--font-size--base)",
+					"fontWeight": "600",
+					"lineHeight": "1.3"
+				},
 				":hover": {
 					"color": {
 						"background": "var(--wp--preset--color--dark-blueberry)"
@@ -133,7 +150,8 @@
 		}
 	},
 	"templateParts": [
-		{ "name": "header", "title": "Header", "area": "header" },
-		{ "name": "footer", "title": "Footer", "area": "footer" }
+		{ "name": "header",         "title": "Header",                  "area": "header" },
+		{ "name": "footer",         "title": "Footer",                  "area": "footer" },
+		{ "name": "mobile-overlay", "title": "Mobile Navigation Overlay", "area": "uncategorized" }
 	]
 }
