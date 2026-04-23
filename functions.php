@@ -151,6 +151,30 @@ function jobswp_2025_add_page_slug_to_body_class( $classes ) {
 add_filter( 'body_class', 'jobswp_2025_add_page_slug_to_body_class' );
 
 /**
+ * Mark the nav link that matches the current request with aria-current="page".
+ *
+ * core/navigation-link does not add an active-state marker of its own, so the
+ * classic theme's FAQ/Feedback highlighting disappears when ported as-is to a
+ * block theme. Compare the link's resolved URL to the current request URL and
+ * inject aria-current on exact matches; style.css targets the attribute.
+ */
+function jobswp_2025_mark_current_nav_link( $block_content, $block ) {
+	if ( empty( $block['attrs']['url'] ) || false === strpos( $block_content, '<a ' ) ) {
+		return $block_content;
+	}
+
+	$link_url    = trailingslashit( esc_url_raw( home_url( $block['attrs']['url'] ) ) );
+	$current_url = trailingslashit( esc_url_raw( home_url( add_query_arg( null, null ) ) ) );
+
+	if ( $link_url === $current_url ) {
+		$block_content = preg_replace( '/<a\b/', '<a aria-current="page"', $block_content, 1 );
+	}
+
+	return $block_content;
+}
+add_filter( 'render_block_core/navigation-link', 'jobswp_2025_mark_current_nav_link', 10, 2 );
+
+/**
  * Register theme-provided dynamic blocks.
  */
 function jobswp_2025_register_blocks() {

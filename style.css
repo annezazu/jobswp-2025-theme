@@ -463,7 +463,7 @@ label {
 	color: var(--color-blueberry-1);
 }
 
-.site-header__nav a.active {
+.site-header__nav a[aria-current="page"] {
 	color: var(--color-blueberry-1);
 	font-weight: 700;
 }
