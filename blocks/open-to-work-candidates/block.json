@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "jobswp-2025/open-to-work-candidates",
+	"title": "Open to Work Candidates",
+	"category": "theme",
+	"description": "Paginated grid of WordPress.org profiles that are open to work. Fetched via the jobswp plugin's wp.org profiles API wrapper and cached for an hour.",
+	"textdomain": "jobswp-2025",
+	"attributes": {
+		"perPage": {
+			"type": "number",
+			"default": 10
+		}
+	},
+	"supports": {
+		"html": false,
+		"inserter": true,
+		"align": [ "wide", "full" ]
+	},
+	"render": "file:./render.php"
+}
