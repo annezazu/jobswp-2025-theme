@@ -209,3 +209,25 @@ function jobswp_2025_register_blocks() {
 	}
 }
 add_action( 'init', 'jobswp_2025_register_blocks' );
+
+/**
+ * Enqueue a client-side edit component for our dynamic blocks so the Site
+ * Editor recognises them and can preview their server-rendered output via
+ * ServerSideRender. Without this the editor shows "Your site doesn't
+ * include support for the <name> block" for each one.
+ */
+function jobswp_2025_enqueue_block_editor_assets() {
+	$editor_js = get_template_directory() . '/js/editor-blocks.js';
+	if ( ! file_exists( $editor_js ) ) {
+		return;
+	}
+
+	wp_enqueue_script(
+		'jobswp-2025-editor-blocks',
+		get_template_directory_uri() . '/js/editor-blocks.js',
+		array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-server-side-render' ),
+		filemtime( $editor_js ),
+		true
+	);
+}
+add_action( 'enqueue_block_editor_assets', 'jobswp_2025_enqueue_block_editor_assets' );
