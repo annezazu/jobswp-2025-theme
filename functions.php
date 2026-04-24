@@ -261,7 +261,14 @@ function jobswp_2025_enqueue_block_editor_assets() {
 	wp_enqueue_script(
 		'jobswp-2025-editor-blocks',
 		get_template_directory_uri() . '/js/editor-blocks.js',
-		array( 'wp-blocks', 'wp-element', 'wp-block-editor', 'wp-server-side-render' ),
+		array(
+			'wp-blocks',
+			'wp-block-editor',
+			'wp-element',
+			'wp-hooks',
+			'wp-dom-ready',
+			'wp-server-side-render',
+		),
 		filemtime( $editor_js ),
 		true
 	);
