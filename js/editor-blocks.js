@@ -1,64 +1,79 @@
 /**
- * Client-side registration for the theme's dynamic blocks.
+ * Client-side edit component for the theme's dynamic blocks.
  *
  * Each block is registered server-side via register_block_type_from_metadata()
- * in functions.php and renders via its own render.php. That's enough to paint
- * correctly on the frontend, but the Site Editor needs a client-side block
- * registration to recognise the block comments in saved content — otherwise
- * it shows "Your site doesn't include support for the <name> block".
+ * in functions.php and renders via its own render.php. That's enough for the
+ * frontend, but the Site Editor needs a client-side edit() function to render
+ * the block in the canvas — otherwise it shows "Your site doesn't include
+ * support for the <name> block" for each saved block comment.
  *
- * We use ServerSideRender as the edit component so the editor previews match
- * what the user will see on the frontend (the actual render.php output) with
- * no second implementation to keep in sync.
+ * We hook blocks.registerBlockType so our edit component is attached as the
+ * block's metadata auto-registers from the server — no duplicate
+ * registerBlockType call, no duplicated metadata to keep in sync with
+ * block.json. ServerSideRender means the editor preview matches render.php.
  */
 ( function ( wp ) {
-	if ( ! wp || ! wp.blocks || ! wp.element ) {
+	if ( ! wp || ! wp.hooks || ! wp.element ) {
 		return;
 	}
 
-	var registerBlockType = wp.blocks.registerBlockType;
-	var getBlockType      = wp.blocks.getBlockType;
-	var createElement     = wp.element.createElement;
-	var useBlockProps     = wp.blockEditor && wp.blockEditor.useBlockProps;
-	var ServerSideRender  = wp.serverSideRender;
+	wp.hooks.addFilter(
+		'blocks.registerBlockType',
+		'jobswp-2025/add-server-side-edit',
+		function ( settings, name ) {
+			if ( 'string' !== typeof name || 0 !== name.indexOf( 'jobswp-2025/' ) ) {
+				return settings;
+			}
 
-	if ( ! ServerSideRender || ! useBlockProps ) {
-		return;
-	}
+			// No further filter work needed — any block under the
+			// `jobswp-2025/` namespace gets the same server-render edit
+			// component. (job-browser, job-list, archive-header,
+			// job-meta-card, sidebar-category-list, remove-job-form,
+			// open-to-work-candidates, menu-toggle.)
 
-	var blocks = [
-		'jobswp-2025/job-browser',
-		'jobswp-2025/job-list',
-		'jobswp-2025/archive-header',
-		'jobswp-2025/job-meta-card',
-		'jobswp-2025/sidebar-category-list',
-		'jobswp-2025/remove-job-form',
-		'jobswp-2025/open-to-work-candidates',
-	];
+			// Don't clobber an edit component the block already ships.
+			if ( settings.edit ) {
+				return settings;
+			}
 
-	blocks.forEach( function ( name ) {
-		// Skip blocks that already have a registered edit component
-		// (defensive — in case someone adds one later).
-		var existing = getBlockType( name );
-		if ( existing && existing.edit ) {
-			return;
-		}
+			var createElement    = wp.element.createElement;
+			var useBlockProps    = wp.blockEditor && wp.blockEditor.useBlockProps;
+			var ServerSideRender = wp.serverSideRender;
 
-		registerBlockType( name, {
-			edit: function ( props ) {
-				return createElement(
-					'div',
-					useBlockProps(),
-					createElement( ServerSideRender, {
-						block: name,
+			settings.edit = function ( props ) {
+				var wrapperProps = useBlockProps ? useBlockProps() : {};
+
+				// Prefer a live ServerSideRender preview so editor output
+				// matches the frontend. Fall back to a labelled placeholder
+				// when the component isn't available (e.g. Gutenberg plugin
+				// versions that package it differently).
+				var inner;
+				if ( ServerSideRender ) {
+					inner = createElement( ServerSideRender, {
+						block:      name,
 						attributes: props.attributes,
-					} )
-				);
-			},
-			save: function () {
-				// Server-rendered — saved content is just the block comment.
+					} );
+				} else {
+					inner = createElement(
+						'div',
+						{ className: 'jobswp-2025-block-placeholder' },
+						createElement( 'strong', null, settings.title || name ),
+						settings.description
+							? createElement( 'p', null, settings.description )
+							: null
+					);
+				}
+
+				return createElement( 'div', wrapperProps, inner );
+			};
+
+			settings.save = function () {
+				// All seven blocks are server-rendered; the saved content is
+				// just the block comment.
 				return null;
-			},
-		} );
-	} );
+			};
+
+			return settings;
+		}
+	);
 } )( window.wp );

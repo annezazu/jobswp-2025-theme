@@ -417,26 +417,53 @@ label {
 	gap: var(--space-30);
 }
 
-.site-header__logo {
-	display: flex;
-	align-items: center;
+/*
+ * Header brand group holds wp:site-logo + wp:site-title. Keep the two
+ * visually anchored together and style the title link to match the
+ * classic-theme look (charcoal, semibold, no underline).
+ */
+.site-header__brand {
 	gap: 10px;
-	text-decoration: none;
-	color: var(--color-charcoal-1);
+}
+
+.site-header__brand .wp-block-site-logo {
+	flex-shrink: 0;
+	line-height: 0;
+}
+
+.site-header__brand .wp-block-site-logo img {
+	width: 36px;
+	height: 36px;
+	max-width: none;
+}
+
+.site-header__title,
+.site-header__title a {
 	font-family: var(--font-body);
 	font-weight: 600;
 	font-size: var(--font-size-base);
+	color: var(--color-charcoal-1);
+	text-decoration: none;
 	white-space: nowrap;
 }
 
-.site-header__logo:hover {
+.site-header__title a:hover {
 	color: var(--color-charcoal-1);
 }
 
-.site-header__logo svg {
-	width: 36px;
-	height: 36px;
-	flex-shrink: 0;
+/*
+ * Shrink the header CTA (wp:button) to the classic theme's .btn-sm
+ * dimensions. theme.json's elements.button sets the 14px/32px padding
+ * that the hero buttons use; in the header nav we want a denser pill.
+ */
+.site-header__cta .wp-block-button__link {
+	padding: 7px 12px;
+	font-size: var(--font-size-sm);
+}
+
+/* wp:buttons wrapper in the nav shouldn't add its own block-gap margin. */
+.site-header__cta {
+	margin: 0;
 }
 
 .site-header__right {
@@ -645,18 +672,26 @@ body.has-mobile-overlay-open {
 	gap: var(--space-20);
 }
 
-.site-footer__social {
-	display: flex;
+/*
+ * .site-footer__social is a wp:social-links block. Core renders it as a
+ * <ul> of icon anchors; theme only needs to recolour for the dark footer
+ * and tighten spacing. Default core styles already handle width/height,
+ * radius, and hover states.
+ */
+.site-footer__social.wp-block-social-links {
 	gap: var(--space-20);
+	--wp--social-links--icon-color: var(--color-charcoal-5);
+	--wp--social-links--icon-background-color: transparent;
 }
 
-.site-footer__social a {
+.site-footer__social .wp-social-link,
+.site-footer__social .wp-social-link:hover {
+	background: transparent;
 	color: var(--color-charcoal-5);
-	text-decoration: none;
 	transition: color var(--transition);
 }
 
-.site-footer__social a:hover {
+.site-footer__social .wp-social-link:hover {
 	color: var(--color-white);
 }
 

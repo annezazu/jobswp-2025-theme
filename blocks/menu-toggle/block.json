@@ -1,0 +1,26 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "jobswp-2025/menu-toggle",
+	"title": "Menu Toggle",
+	"category": "theme",
+	"description": "Hamburger / close button that opens or closes the mobile navigation overlay. Replaces raw <button> HTML so the Site Editor shows a proper block.",
+	"textdomain": "jobswp-2025",
+	"attributes": {
+		"direction": {
+			"type": "string",
+			"enum": [ "open", "close" ],
+			"default": "open"
+		},
+		"target": {
+			"type": "string",
+			"default": "mobile-overlay"
+		}
+	},
+	"supports": {
+		"html": false,
+		"inserter": true,
+		"align": false
+	},
+	"render": "file:./render.php"
+}

@@ -29,6 +29,18 @@ function jobswp_2025_setup() {
 	add_theme_support( 'editor-styles' );
 	add_editor_style( 'style.css' );
 
+	// Ship the WP.org logo as the default site logo. The default-image
+	// support param is used by the Customizer preview; the
+	// `get_custom_logo` filter below is what actually injects the SVG
+	// into wp:site-logo's render on fresh installs.
+	add_theme_support( 'custom-logo', array(
+		'default-image' => get_template_directory_uri() . '/assets/logo.svg',
+		'flex-width'    => false,
+		'flex-height'   => false,
+		'width'         => 36,
+		'height'        => 36,
+	) );
+
 	register_nav_menus( array(
 		'primary' => __( 'Primary Menu', 'jobswp-2025' ),
 	) );
@@ -160,6 +172,30 @@ function jobswp_2025_add_page_slug_to_body_class( $classes ) {
 	return $classes;
 }
 add_filter( 'body_class', 'jobswp_2025_add_page_slug_to_body_class' );
+
+/**
+ * Fall back to the theme-shipped SVG when no custom logo has been
+ * uploaded. wp:site-logo asks get_custom_logo() first and bails if the
+ * return value is empty, so the only reliable hook is this filter at the
+ * end of that function. Matches core's rendered markup so wp:site-logo's
+ * own styling and the `src` and `srcset` behaviour keep working.
+ */
+function jobswp_2025_default_custom_logo( $html ) {
+	if ( ! empty( $html ) ) {
+		return $html;
+	}
+
+	$svg_url = get_template_directory_uri() . '/assets/logo.svg';
+	$alt     = _x( 'WordPress Jobs', 'Site logo alt text', 'jobswp-2025' );
+
+	return sprintf(
+		'<a href="%1$s" class="custom-logo-link" rel="home"><img src="%2$s" class="custom-logo" alt="%3$s" width="36" height="36" /></a>',
+		esc_url( home_url( '/' ) ),
+		esc_url( $svg_url ),
+		esc_attr( $alt )
+	);
+}
+add_filter( 'get_custom_logo', 'jobswp_2025_default_custom_logo' );
 
 /**
  * Mark the nav link that matches the current request with aria-current="page".

@@ -70,19 +70,13 @@
 		<!-- wp:group {"className":"site-footer__bottom","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"wrap"}} -->
 		<div class="wp-block-group site-footer__bottom">
 
-			<!-- wp:group {"className":"site-footer__social","layout":{"type":"flex","flexWrap":"wrap"}} -->
-			<div class="wp-block-group site-footer__social">
-				<!-- wp:html -->
-				<a href="https://twitter.com/WordPress" aria-label="WordPress on X">X / Twitter</a>
-				<!-- /wp:html -->
-				<!-- wp:html -->
-				<a href="https://www.facebook.com/WordPress/" aria-label="WordPress on Facebook">Facebook</a>
-				<!-- /wp:html -->
-				<!-- wp:html -->
-				<a href="https://www.youtube.com/wordpress" aria-label="WordPress on YouTube">YouTube</a>
-				<!-- /wp:html -->
-			</div>
-			<!-- /wp:group -->
+			<!-- wp:social-links {"className":"site-footer__social"} -->
+			<ul class="wp-block-social-links site-footer__social">
+				<!-- wp:social-link {"url":"https://twitter.com/WordPress","service":"x"} /-->
+				<!-- wp:social-link {"url":"https://www.facebook.com/WordPress/","service":"facebook"} /-->
+				<!-- wp:social-link {"url":"https://www.youtube.com/wordpress","service":"youtube"} /-->
+			</ul>
+			<!-- /wp:social-links -->
 
 			<!-- wp:paragraph {"className":"site-footer__tagline"} -->
 			<p class="site-footer__tagline">Code is Poetry.</p>
