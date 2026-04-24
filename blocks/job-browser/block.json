@@ -9,7 +9,8 @@
 	"supports": {
 		"html": false,
 		"inserter": true,
-		"align": [ "wide", "full" ]
+		"align": [ "wide", "full" ],
+		"interactivity": true
 	},
 	"render": "file:./render.php",
 	"viewScriptModule": "file:./view.js"
