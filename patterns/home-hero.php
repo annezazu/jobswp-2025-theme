@@ -13,27 +13,21 @@
 	<!-- wp:group {"className":"hero__inner","layout":{"type":"default"}} -->
 	<div class="wp-block-group hero__inner">
 		<!-- wp:heading {"level":1} -->
-		<h1 class="wp-block-heading"><?php
-			printf(
-				/* translators: %s: highlighted word "Opportunity" */
-				esc_html__( 'Find Your Next WordPress %s', 'jobswp-2025' ),
-				'<span class="hero__highlight">' . esc_html__( 'Opportunity', 'jobswp-2025' ) . '</span>'
-			);
-		?></h1>
+		<h1 class="wp-block-heading">Find Your Next WordPress <span class="hero__highlight">Opportunity</span></h1>
 		<!-- /wp:heading -->
 
 		<!-- wp:paragraph -->
-		<p><?php esc_html_e( 'Browse open positions across the WordPress ecosystem — from development to design, support to community.', 'jobswp-2025' ); ?></p>
+		<p>Browse open positions across the WordPress ecosystem — from development to design, support to community.</p>
 		<!-- /wp:paragraph -->
 
 		<!-- wp:buttons {"className":"hero__actions"} -->
 		<div class="wp-block-buttons hero__actions">
 			<!-- wp:button -->
-			<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#jobs"><?php esc_html_e( 'Browse Jobs', 'jobswp-2025' ); ?></a></div>
+			<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="#jobs">Browse Jobs</a></div>
 			<!-- /wp:button -->
 
 			<!-- wp:button {"className":"is-style-outline"} -->
-			<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/post-a-job/"><?php esc_html_e( 'Post a Job', 'jobswp-2025' ); ?></a></div>
+			<div class="wp-block-button is-style-outline"><a class="wp-block-button__link wp-element-button" href="/post-a-job/">Post a Job</a></div>
 			<!-- /wp:button -->
 		</div>
 		<!-- /wp:buttons -->

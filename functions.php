@@ -75,13 +75,25 @@ function jobswp_2025_enqueue_assets() {
 add_action( 'wp_enqueue_scripts', 'jobswp_2025_enqueue_assets' );
 
 /**
+ * Google Tag Manager container ID. Defaults to the jobs.wordpress.net
+ * production container. Filter `jobswp_2025_gtm_id` to override (return empty
+ * to disable GTM entirely, e.g. in local / staging environments).
+ */
+function jobswp_2025_gtm_id() {
+	return (string) apply_filters( 'jobswp_2025_gtm_id', 'GTM-P24PF4B' );
+}
+
+/**
  * Google Tag Manager snippet in <head>.
  *
- * Ported from the jobswp classic theme's header.php. In a block theme the
- * <head> is rendered by wp_head() rather than a header template, so this
- * hooks into wp_head at high priority.
+ * In a block theme the <head> is rendered by wp_head() rather than a header
+ * template, so this hooks into wp_head at high priority.
  */
 function jobswp_2025_gtm_head() {
+	$gtm_id = jobswp_2025_gtm_id();
+	if ( '' === $gtm_id ) {
+		return;
+	}
 	?>
 	<!-- Google Tag Manager -->
 	<link rel="dns-prefetch" href="//www.googletagmanager.com"/>
@@ -89,7 +101,7 @@ function jobswp_2025_gtm_head() {
 	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-	})(window,document,'script','dataLayer','GTM-P24PF4B');</script>
+	})(window,document,'script','dataLayer','<?php echo esc_js( $gtm_id ); ?>');</script>
 	<!-- End Google Tag Manager -->
 	<?php
 }
@@ -99,8 +111,12 @@ add_action( 'wp_head', 'jobswp_2025_gtm_head', 1 );
  * GTM noscript iframe immediately after <body>.
  */
 function jobswp_2025_gtm_body() {
+	$gtm_id = jobswp_2025_gtm_id();
+	if ( '' === $gtm_id ) {
+		return;
+	}
 	?>
-	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P24PF4B" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<?php echo esc_attr( $gtm_id ); ?>" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	<?php
 }
 add_action( 'wp_body_open', 'jobswp_2025_gtm_body' );
