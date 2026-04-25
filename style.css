@@ -444,14 +444,14 @@ label {
  * keeps just the single "Post a Job" CTA. The overlay-specific rule below
  * re-shows it inside .is-menu-open.
  */
-.site-header__cta-browse {
-	display: none;
+.site-header .site-header__cta-browse {
+	display: none !important;
 }
 
 .site-header__nav
 	.wp-block-navigation__responsive-container.is-menu-open
 	.site-header__cta-browse {
-	display: block;
+	display: block !important;
 }
 
 /*
@@ -1844,7 +1844,7 @@ input[type="submit"].submit-job {
 
 .candidates-section {
 	background: var(--color-light-grey-2);
-	padding: clamp(100px, 12vw, 180px) var(--space-20);
+	padding: clamp(120px, 14vw, 200px) var(--space-20);
 }
 
 .candidates-section__inner {
@@ -1857,7 +1857,7 @@ input[type="submit"].submit-job {
 	align-items: flex-start;
 	justify-content: space-between;
 	gap: var(--space-20);
-	margin-bottom: var(--space-50);
+	margin-bottom: clamp(60px, 8vw, 110px);
 	flex-wrap: wrap;
 }
 
