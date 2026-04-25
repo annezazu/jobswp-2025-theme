@@ -217,3 +217,82 @@ function jobswp_category_transient_flusher() {
 }
 add_action( 'edit_category', 'jobswp_category_transient_flusher' );
 add_action( 'save_post',     'jobswp_category_transient_flusher' );
+
+/**
+ * Builds the homepage job snapshot used by both the hero stats row (rendered
+ * by patterns/home-hero.php) and the job-browser block's filter-pill grid.
+ *
+ * Iterates every `job_category` term once, collects unique jobs, computes the
+ * remote-friendly percentage, and memoises the result per request so both
+ * callers share the work. Depends on the `jobswp` plugin.
+ *
+ * @return array|null array{jobs:WP_Post[], category_map:array<int,string>,
+ *     counts:array<string,int>, total_jobs:int, categories_with_jobs:int,
+ *     remote_pct:int, categories:WP_Term[]} or null if the plugin isn't loaded.
+ */
+function jobswp_2025_homepage_snapshot() {
+	static $cache = null;
+	if ( null !== $cache ) {
+		return $cache;
+	}
+
+	if ( ! class_exists( 'Jobs_Dot_WP' ) ) {
+		return null;
+	}
+
+	$categories = Jobs_Dot_WP::get_job_categories();
+	if ( ! $categories ) {
+		return null;
+	}
+
+	$jobs                 = array();
+	$category_map         = array();
+	$counts               = array( 'all' => 0 );
+	$remote_count         = 0;
+	$categories_with_jobs = 0;
+
+	foreach ( $categories as $cat ) {
+		$cat_jobs             = Jobs_Dot_WP::get_jobs_for_category( $cat );
+		$counts[ $cat->slug ] = count( $cat_jobs );
+
+		if ( empty( $cat_jobs ) ) {
+			continue;
+		}
+
+		$categories_with_jobs++;
+
+		foreach ( $cat_jobs as $job ) {
+			if ( isset( $category_map[ $job->ID ] ) ) {
+				continue;
+			}
+			$jobs[]                   = $job;
+			$category_map[ $job->ID ] = $cat->slug;
+
+			$location = get_post_meta( $job->ID, 'location', true );
+			if (
+				empty( $location ) ||
+				'N/A' === $location ||
+				false !== stripos( $location, 'remote' ) ||
+				false !== stripos( $location, 'anywhere' )
+			) {
+				$remote_count++;
+			}
+		}
+	}
+
+	$total_jobs      = count( $jobs );
+	$counts['all']   = $total_jobs;
+	$remote_pct      = $total_jobs > 0 ? (int) round( ( $remote_count / $total_jobs ) * 100 ) : 0;
+
+	$cache = array(
+		'jobs'                 => $jobs,
+		'category_map'         => $category_map,
+		'counts'               => $counts,
+		'total_jobs'           => $total_jobs,
+		'categories_with_jobs' => $categories_with_jobs,
+		'remote_pct'           => $remote_pct,
+		'categories'           => $categories,
+	);
+
+	return $cache;
+}

@@ -12,47 +12,15 @@ if ( ! class_exists( 'Jobs_Dot_WP' ) || ! function_exists( 'jobswp_get_job_meta'
 	return;
 }
 
-$job_categories = Jobs_Dot_WP::get_job_categories();
-
-$all_jobs             = array();
-$category_map         = array();
-$total_jobs           = 0;
-$remote_count         = 0;
-$categories_with_jobs = 0;
-$counts               = array( 'all' => 0 );
-
-if ( $job_categories ) {
-	foreach ( $job_categories as $cat ) {
-		$jobs                 = Jobs_Dot_WP::get_jobs_for_category( $cat );
-		$counts[ $cat->slug ] = count( $jobs );
-
-		if ( ! empty( $jobs ) ) {
-			$categories_with_jobs++;
-
-			foreach ( $jobs as $job ) {
-				if ( isset( $category_map[ $job->ID ] ) ) {
-					continue;
-				}
-				$all_jobs[]               = $job;
-				$category_map[ $job->ID ] = $cat->slug;
-				$total_jobs++;
-
-				$location = get_post_meta( $job->ID, 'location', true );
-				if (
-					empty( $location ) ||
-					'N/A' === $location ||
-					false !== stripos( $location, 'remote' ) ||
-					false !== stripos( $location, 'anywhere' )
-				) {
-					$remote_count++;
-				}
-			}
-		}
-	}
-	$counts['all'] = $total_jobs;
+$snapshot = function_exists( 'jobswp_2025_homepage_snapshot' ) ? jobswp_2025_homepage_snapshot() : null;
+if ( ! $snapshot ) {
+	return;
 }
 
-$remote_pct         = $total_jobs > 0 ? round( ( $remote_count / $total_jobs ) * 100 ) : 0;
+$job_categories     = $snapshot['categories'];
+$all_jobs           = $snapshot['jobs'];
+$category_map       = $snapshot['category_map'];
+$counts             = $snapshot['counts'];
 $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'job-browser' ) );
 $interactivity_ctx  = array( 'counts' => $counts );
 ?>
@@ -61,21 +29,6 @@ $interactivity_ctx  = array( 'counts' => $counts );
 	data-wp-interactive="jobswp/jobBrowser"
 	<?php echo wp_interactivity_data_wp_context( $interactivity_ctx ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 >
-
-	<section class="hero__stats">
-		<div class="hero__stat">
-			<span class="hero__stat-number"><?php echo esc_html( $total_jobs ); ?></span>
-			<span class="hero__stat-label"><?php esc_html_e( 'Open Positions', 'jobswp-2025' ); ?></span>
-		</div>
-		<div class="hero__stat">
-			<span class="hero__stat-number"><?php echo esc_html( $categories_with_jobs ); ?></span>
-			<span class="hero__stat-label"><?php esc_html_e( 'Categories', 'jobswp-2025' ); ?></span>
-		</div>
-		<div class="hero__stat">
-			<span class="hero__stat-number"><?php echo esc_html( $remote_pct . '%' ); ?></span>
-			<span class="hero__stat-label"><?php esc_html_e( 'Remote Friendly', 'jobswp-2025' ); ?></span>
-		</div>
-	</section>
 
 	<section class="filters" id="jobs">
 		<p class="filters__label"><?php esc_html_e( 'Filter by category', 'jobswp-2025' ); ?></p>
