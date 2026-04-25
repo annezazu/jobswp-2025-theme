@@ -1,23 +1,21 @@
 <?php
 /**
- * Renders the Remove a Job form. Ported from page-remove-a-job.php.
- *
- * Submission is handled by the jobswp plugin's maybe_remove_job() action,
- * which is already hooked to `wp`. The plugin sets $_POST['errors'] on
- * validation failure and redirects to ?removedjob=1 on success.
- *
- * @package jobswp-2025
+ * Title: Remove a Job Form
+ * Slug: jobswp-2025/remove-job-form
+ * Categories: featured
+ * Description: Token-input form for /remove-a-job/. Replaces the legacy jobswp-2025/remove-job-form custom block — submission is handled by the jobswp plugin's maybe_remove_job() action, so the only theme-side responsibilities are markup, the nonce, and rendering success/error notices set by the plugin.
+ * Inserter: no
  */
 
 if ( ! function_exists( 'jobswp_text_field' ) ) {
 	return;
 }
-
-$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'remove-job' ) );
 ?>
-<div <?php echo $wrapper_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<!-- wp:group {"className":"remove-job","layout":{"type":"default"}} -->
+<div class="wp-block-group remove-job">
 
 	<?php if ( isset( $_POST['errors'] ) ) : // phpcs:ignore WordPress.Security.NonceVerification.Missing ?>
+		<!-- wp:html -->
 		<div class="notice notice-error">
 			<?php
 			if ( is_string( $_POST['errors'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
@@ -32,12 +30,16 @@ $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'remove-jo
 			do_action( 'jobswp_notice', 'error' );
 			?>
 		</div>
+		<!-- /wp:html -->
 	<?php elseif ( isset( $_GET['removedjob'] ) && '1' === $_GET['removedjob'] ) : // phpcs:ignore WordPress.Security.NonceVerification.Recommended ?>
+		<!-- wp:html -->
 		<div class="notice notice-success">
 			<strong><?php esc_html_e( 'Your job posting has been successfully removed.', 'jobswp-2025' ); ?></strong>
 		</div>
+		<!-- /wp:html -->
 	<?php endif; ?>
 
+	<!-- wp:html -->
 	<form class="post-job" method="post" action="">
 		<?php jobswp_text_field( 'job_token', __( 'Job Token:', 'jobswp-2025' ) ); ?>
 
@@ -52,4 +54,7 @@ $wrapper_attributes = get_block_wrapper_attributes( array( 'class' => 'remove-jo
 			value="<?php esc_attr_e( 'Remove job', 'jobswp-2025' ); ?>"
 		/>
 	</form>
+	<!-- /wp:html -->
+
 </div>
+<!-- /wp:group -->
