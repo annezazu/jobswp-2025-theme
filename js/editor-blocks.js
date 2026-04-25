@@ -48,10 +48,6 @@
 			title:    'Open to Work Candidates',
 			category: 'theme',
 		},
-		'jobswp-2025/menu-toggle': {
-			title:    'Menu Toggle',
-			category: 'theme',
-		},
 	};
 
 	function renderEdit( name ) {

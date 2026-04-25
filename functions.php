@@ -60,17 +60,6 @@ function jobswp_2025_enqueue_assets() {
 		array(),
 		filemtime( get_stylesheet_directory() . '/style.css' )
 	);
-
-	$overlay_js = get_template_directory() . '/js/mobile-overlay.js';
-	if ( file_exists( $overlay_js ) ) {
-		wp_enqueue_script(
-			'jobswp-2025-mobile-overlay',
-			get_template_directory_uri() . '/js/mobile-overlay.js',
-			array(),
-			filemtime( $overlay_js ),
-			array( 'strategy' => 'defer' )
-		);
-	}
 }
 add_action( 'wp_enqueue_scripts', 'jobswp_2025_enqueue_assets' );
 
