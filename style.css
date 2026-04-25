@@ -439,6 +439,21 @@ label {
 	margin: 0;
 }
 
+/*
+ * Browse Jobs button only appears in the mobile overlay; the desktop header
+ * keeps just the single "Post a Job" CTA. The overlay-specific rule below
+ * re-shows it inside .is-menu-open.
+ */
+.site-header__cta-browse {
+	display: none;
+}
+
+.site-header__nav
+	.wp-block-navigation__responsive-container.is-menu-open
+	.site-header__cta-browse {
+	display: block;
+}
+
 .site-header__right {
 	display: flex;
 	align-items: center;
@@ -451,7 +466,7 @@ label {
 	gap: var(--space-40);
 }
 
-.site-header__nav a {
+.site-header__nav a:not(.wp-block-button__link) {
 	color: var(--color-charcoal-1);
 	text-decoration: none;
 	font-size: var(--font-size-base);
@@ -459,13 +474,120 @@ label {
 	transition: color var(--transition);
 }
 
-.site-header__nav a:hover {
+.site-header__nav a:not(.wp-block-button__link):hover {
 	color: var(--color-blueberry-1);
 }
 
-.site-header__nav a[aria-current="page"] {
+.site-header__nav a[aria-current="page"]:not(.wp-block-button__link) {
 	color: var(--color-blueberry-1);
 	font-weight: 700;
+}
+
+/*
+ * In-page anchor links (e.g. "#candidates") share the homepage path with the
+ * Jobs link, so core's wp:navigation-link marks both as aria-current="page".
+ * Suppress the active styling on fragment links so only true page links light up.
+ */
+.site-header__nav a[href*="#"][aria-current="page"]:not(.wp-block-button__link) {
+	color: var(--color-charcoal-1);
+	font-weight: 500;
+}
+
+/* Header CTA button: keep theme.json's white-on-blueberry pairing even though
+   the nav link colour rule would otherwise make button text charcoal. */
+.site-header__cta .wp-block-button__link,
+.site-header__cta .wp-block-button__link:hover,
+.site-header__cta .wp-block-button__link:focus {
+	color: var(--color-white);
+}
+
+/* ============================================
+   Header — mobile overlay menu
+   Core renders wp:navigation's overlay as
+   .wp-block-navigation__responsive-container.is-menu-open with the
+   container holding nav links + the wp:buttons CTA. Style it for
+   centered, large, "landing page" presence.
+   ============================================ */
+
+.site-header__nav .wp-block-navigation__responsive-container.is-menu-open {
+	background: var(--color-white);
+	padding: var(--space-60) var(--space-30);
+}
+
+.site-header__nav
+	.wp-block-navigation__responsive-container.is-menu-open
+	.wp-block-navigation__responsive-container-content {
+	width: 100%;
+	max-width: 480px;
+	margin-inline: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: center;
+	gap: var(--space-30);
+	min-height: 100%;
+}
+
+.site-header__nav
+	.wp-block-navigation__responsive-container.is-menu-open
+	.wp-block-navigation__container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: var(--space-30);
+	width: 100%;
+}
+
+.site-header__nav
+	.wp-block-navigation__responsive-container.is-menu-open
+	.wp-block-navigation-item__content {
+	font-family: var(--font-heading);
+	font-size: clamp(28px, 6vw, 40px);
+	font-weight: 400;
+	line-height: 1.1;
+	color: var(--color-charcoal-1);
+	text-decoration: none;
+}
+
+.site-header__nav
+	.wp-block-navigation__responsive-container.is-menu-open
+	.wp-block-navigation-item__content:hover {
+	color: var(--color-blueberry-1);
+}
+
+/* CTA buttons inside the open overlay: full-width, prominent pair. */
+.site-header__nav
+	.wp-block-navigation__responsive-container.is-menu-open
+	.wp-block-buttons.site-header__cta {
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-20);
+	width: 100%;
+	margin-top: var(--space-30);
+	padding-top: var(--space-30);
+	border-top: 1px solid var(--color-light-grey-1);
+}
+
+.site-header__nav
+	.wp-block-navigation__responsive-container.is-menu-open
+	.wp-block-buttons.site-header__cta
+	.wp-block-button {
+	width: 100%;
+}
+
+.site-header__nav
+	.wp-block-navigation__responsive-container.is-menu-open
+	.wp-block-buttons.site-header__cta
+	.wp-block-button__link {
+	display: block;
+	width: 100%;
+	text-align: center;
+	padding: 18px 32px;
+	font-size: var(--font-size-lg);
+	font-weight: 600;
+	color: var(--color-white);
+	background: var(--color-blueberry-1);
+	border-radius: var(--radius);
 }
 
 /* ============================================
@@ -578,17 +700,24 @@ label {
 
 .hero {
 	background: var(--color-light-grey-2);
-	padding: var(--space-80) var(--space-20);
+	padding: clamp(80px, 12vw, 160px) var(--space-20);
 	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: clamp(520px, 70vh, 720px);
 }
 
 .hero__inner {
 	max-width: var(--wide-width);
 	margin-inline: auto;
+	width: 100%;
 }
 
 .hero h1 {
-	margin-bottom: var(--space-20);
+	margin-bottom: var(--space-30);
+	font-size: clamp(48px, 7vw, 84px);
+	line-height: 1.05;
 }
 
 .hero__highlight {
@@ -1694,7 +1823,7 @@ input[type="submit"].submit-job {
 
 .candidates-section {
 	background: var(--color-light-grey-2);
-	padding: var(--space-60) var(--space-20);
+	padding: clamp(80px, 10vw, 140px) var(--space-20);
 }
 
 .candidates-section__inner {
@@ -1712,8 +1841,8 @@ input[type="submit"].submit-job {
 }
 
 .candidates-section__header h2 {
-	font-size: var(--font-size-h3);
-	margin-bottom: 8px;
+	font-size: var(--font-size-h2);
+	margin-bottom: var(--space-10);
 }
 
 .candidates-section__header p {

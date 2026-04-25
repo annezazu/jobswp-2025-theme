@@ -12,6 +12,9 @@
 ?>
 <!-- wp:buttons {"className":"site-header__cta"} -->
 <div class="wp-block-buttons site-header__cta">
+	<!-- wp:button {"className":"site-header__cta-browse"} -->
+	<div class="wp-block-button site-header__cta-browse"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/#jobs' ) ); ?>"><?php esc_html_e( 'Browse Jobs', 'jobswp-2025' ); ?></a></div>
+	<!-- /wp:button -->
 	<!-- wp:button -->
 	<div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="<?php echo esc_url( home_url( '/post-a-job/' ) ); ?>"><?php esc_html_e( 'Post a Job', 'jobswp-2025' ); ?></a></div>
 	<!-- /wp:button -->
