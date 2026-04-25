@@ -184,8 +184,7 @@
 		}
 	},
 	"templateParts": [
-		{ "name": "header",         "title": "Header",                  "area": "header" },
-		{ "name": "footer",         "title": "Footer",                  "area": "footer" },
-		{ "name": "mobile-overlay", "title": "Mobile Navigation Overlay", "area": "uncategorized" }
+		{ "name": "header", "title": "Header", "area": "header" },
+		{ "name": "footer", "title": "Footer", "area": "footer" }
 	]
 }

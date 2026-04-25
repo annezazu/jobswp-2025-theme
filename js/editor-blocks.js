@@ -1,7 +1,7 @@
 /**
  * Client-side registration for the theme's dynamic blocks.
  *
- * All eight blocks are registered server-side via
+ * The six theme blocks are registered server-side via
  * register_block_type_from_metadata() in functions.php and render via
  * their own render.php. Server registration is enough for the frontend
  * but the Site Editor still needs to find the block in its client-side
@@ -44,20 +44,8 @@
 			title:    'Job Meta Card',
 			category: 'theme',
 		},
-		'jobswp-2025/sidebar-category-list': {
-			title:    'Sidebar Category List',
-			category: 'theme',
-		},
-		'jobswp-2025/remove-job-form': {
-			title:    'Remove Job Form',
-			category: 'theme',
-		},
 		'jobswp-2025/open-to-work-candidates': {
 			title:    'Open to Work Candidates',
-			category: 'theme',
-		},
-		'jobswp-2025/menu-toggle': {
-			title:    'Menu Toggle',
 			category: 'theme',
 		},
 	};
