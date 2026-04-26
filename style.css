@@ -1942,14 +1942,14 @@ input[type="submit"].submit-job {
 
 .candidate-card__badge {
 	display: inline-flex;
-	padding: 2px 10px;
+	padding: 1px 8px;
 	border-radius: var(--radius-pill);
 	background: var(--color-acid-green-3);
 	color: var(--color-charcoal-2);
-	font-size: var(--font-size-xs);
+	font-size: 10px;
 	font-weight: 600;
 	text-transform: uppercase;
-	letter-spacing: 0.05em;
+	letter-spacing: 0.04em;
 	margin-bottom: 4px;
 }
 
