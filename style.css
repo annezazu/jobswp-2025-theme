@@ -495,11 +495,17 @@ label {
 	gap: var(--space-40);
 }
 
+/*
+ * Match wordpress.org's global header nav (Inter, 14px, weight 400)
+ * so jobs.wordpress.net's chrome reads as part of the same family.
+ * The mobile overlay overrides this with EB Garamond at a much
+ * larger size further down.
+ */
 .site-header__nav a:not(.wp-block-button__link) {
 	color: var(--color-charcoal-1);
 	text-decoration: none;
-	font-size: var(--font-size-base);
-	font-weight: 500;
+	font-size: var(--font-size-sm);
+	font-weight: 400;
 	transition: color var(--transition);
 }
 
@@ -509,7 +515,7 @@ label {
 
 .site-header__nav a[aria-current="page"]:not(.wp-block-button__link) {
 	color: var(--color-blueberry-1);
-	font-weight: 700;
+	font-weight: 600;
 }
 
 /*
@@ -519,7 +525,7 @@ label {
  */
 .site-header__nav a[href*="#"][aria-current="page"]:not(.wp-block-button__link) {
 	color: var(--color-charcoal-1);
-	font-weight: 500;
+	font-weight: 400;
 }
 
 /* Header CTA button: keep theme.json's white-on-blueberry pairing even though
