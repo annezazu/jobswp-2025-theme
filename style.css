@@ -72,16 +72,24 @@ Licensed under the GPL.
 	--font-size-h2: var(--wp--preset--font-size--heading-2);
 	--font-size-h1: var(--wp--preset--font-size--heading-1);
 
-	/* Spacing */
-	--space-10: var(--wp--preset--spacing--10);
-	--space-20: var(--wp--preset--spacing--20);
-	--space-30: var(--wp--preset--spacing--30);
-	--space-40: var(--wp--preset--spacing--40);
-	--space-50: var(--wp--preset--spacing--50);
-	--space-60: var(--wp--preset--spacing--60);
-	--space-70: var(--wp--preset--spacing--70);
-	--space-80: var(--wp--preset--spacing--80);
-	--space-edge: var(--wp--preset--spacing--edge);
+	/*
+	 * Spacing tokens are declared literally here (NOT via
+	 * var(--wp--preset--spacing--*)) because WordPress core's
+	 * fluid-spacing pipeline rewrites the spacing presets into tiny
+	 * rem units (e.g. --wp--preset--spacing--20 becomes 0.44rem),
+	 * which would silently shrink every padding/gap that consumes
+	 * --space-*. The classic jobswp theme works around this the same
+	 * way. Keep these values in sync with theme.json's spacingSizes.
+	 */
+	--space-10: 10px;
+	--space-20: 20px;
+	--space-30: 30px;
+	--space-40: clamp(30px, 5vw, 50px);
+	--space-50: clamp(40px, calc(5vw + 10px), 60px);
+	--space-60: clamp(20px, calc(10vw - 40px), 80px);
+	--space-70: 100px;
+	--space-80: clamp(80px, calc(6.67vw + 40px), 120px);
+	--space-edge: 80px;
 
 	/* Layout (not exposed via theme.json settings — kept literal here) */
 	--content-width: 680px;
