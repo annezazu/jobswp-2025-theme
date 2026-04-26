@@ -1844,7 +1844,7 @@ input[type="submit"].submit-job {
 
 .candidates-section {
 	background: var(--color-light-grey-2);
-	padding: clamp(100px, 9vw, 140px) var(--space-20);
+	padding: var(--space-60) var(--space-20);
 }
 
 .candidates-section__inner {
@@ -1857,7 +1857,7 @@ input[type="submit"].submit-job {
 	align-items: flex-start;
 	justify-content: space-between;
 	gap: var(--space-20);
-	margin-bottom: clamp(60px, 6vw, 90px);
+	margin-bottom: var(--space-40);
 	flex-wrap: wrap;
 }
 
@@ -1886,18 +1886,17 @@ input[type="submit"].submit-job {
 .candidates-grid {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	column-gap: clamp(24px, 2.5vw, 36px);
-	row-gap: clamp(28px, 3vw, 44px);
+	gap: var(--space-20);
 }
 
 .candidate-card {
 	display: flex;
 	align-items: center;
-	gap: clamp(20px, 2vw, 28px);
+	gap: var(--space-20);
 	background: var(--color-white);
 	border: 1px solid var(--color-light-grey-1);
 	border-radius: var(--radius);
-	padding: clamp(36px, 4vw, 52px) clamp(40px, 4.5vw, 60px);
+	padding: var(--space-20) var(--space-30);
 	text-decoration: none;
 	color: inherit;
 	transition:
