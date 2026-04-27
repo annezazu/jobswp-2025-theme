@@ -32,27 +32,7 @@
 		</div>
 		<!-- /wp:buttons -->
 
-		<?php
-		$snapshot = function_exists( 'jobswp_2025_homepage_snapshot' ) ? jobswp_2025_homepage_snapshot() : null;
-		if ( $snapshot ) :
-			?>
-			<!-- wp:html -->
-			<section class="hero__stats">
-				<div class="hero__stat">
-					<span class="hero__stat-number"><?php echo esc_html( $snapshot['total_jobs'] ); ?></span>
-					<span class="hero__stat-label"><?php esc_html_e( 'Open Positions', 'jobswp-2025' ); ?></span>
-				</div>
-				<div class="hero__stat">
-					<span class="hero__stat-number"><?php echo esc_html( $snapshot['categories_with_jobs'] ); ?></span>
-					<span class="hero__stat-label"><?php esc_html_e( 'Categories', 'jobswp-2025' ); ?></span>
-				</div>
-				<div class="hero__stat">
-					<span class="hero__stat-number"><?php echo esc_html( $snapshot['remote_pct'] . '%' ); ?></span>
-					<span class="hero__stat-label"><?php esc_html_e( 'Remote Friendly', 'jobswp-2025' ); ?></span>
-				</div>
-			</section>
-			<!-- /wp:html -->
-		<?php endif; ?>
+		<!-- wp:jobswp-2025/hero-stats /-->
 	</div>
 	<!-- /wp:group -->
 </section>

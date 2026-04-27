@@ -1,0 +1,14 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "jobswp-2025/hero-stats",
+	"title": "Hero Stats",
+	"category": "theme",
+	"description": "Live homepage stats trio (open positions, categories, remote-friendly %). Renders nothing if the snapshot helper is unavailable.",
+	"textdomain": "jobswp-2025",
+	"supports": {
+		"html": false,
+		"inserter": true
+	},
+	"render": "file:./render.php"
+}

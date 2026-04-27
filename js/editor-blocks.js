@@ -48,6 +48,10 @@
 			title:    'Open to Work Candidates',
 			category: 'theme',
 		},
+		'jobswp-2025/hero-stats': {
+			title:    'Hero Stats',
+			category: 'theme',
+		},
 	};
 
 	function renderEdit( name ) {
