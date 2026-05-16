@@ -24,6 +24,9 @@
 	var createElement    = wp.element.createElement;
 	var useBlockProps    = wp.blockEditor && wp.blockEditor.useBlockProps;
 	var ServerSideRender = wp.serverSideRender;
+	var Placeholder      = wp.components && wp.components.Placeholder;
+	var __               = ( wp.i18n && wp.i18n.__ ) || function ( s ) { return s; };
+	var siteConfig       = window.jobswp2025 || {};
 
 	// Minimal metadata fallback for each block — matches block.json. Used
 	// only when auto-registration didn't expose the block to the client.
@@ -52,11 +55,39 @@
 			title:    'Hero Stats',
 			category: 'theme',
 		},
+		'jobswp-2025/job-views': {
+			title:    'Job Views',
+			category: 'theme',
+		},
 	};
 
 	function renderEdit( name ) {
 		return function ( props ) {
 			var wrapperProps = useBlockProps ? useBlockProps() : {};
+
+			// Job Views depends on Jetpack Stats — show a placeholder in
+			// the editor when Stats isn't available rather than an empty
+			// ServerSideRender preview, which looks broken.
+			if ( name === 'jobswp-2025/job-views' && siteConfig.hasJetpackStats === false ) {
+				var notice = Placeholder
+					? createElement( Placeholder, {
+						label:        __( 'Job Views', 'jobswp-2025' ),
+						instructions: __(
+							'This block displays per-job view counts from Jetpack Stats. Install and connect Jetpack with the Stats module to use it.',
+							'jobswp-2025'
+						),
+					} )
+					: createElement(
+						'div',
+						{ style: { padding: '1em', border: '1px dashed #ccc' } },
+						createElement( 'strong', null, __( 'Job Views', 'jobswp-2025' ) ),
+						createElement( 'p', null, __(
+							'Requires Jetpack Stats. Connect Jetpack to display view counts.',
+							'jobswp-2025'
+						) )
+					);
+				return createElement( 'div', wrapperProps, notice );
+			}
 
 			if ( ServerSideRender ) {
 				return createElement(

@@ -7,6 +7,7 @@ A WordPress block theme for [jobs.wordpress.net](https://jobs.wordpress.net/), s
 - WordPress 6.5+ (uses the Interactivity API and `viewScriptModule`)
 - PHP 7.4+
 - The `jobswp` plugin must be active. The theme calls into `Jobs_Dot_WP::*` and helpers from `jobswp-template.php`. The plugin is untouched; it lives separately at `wp-content/plugins/jobswp/`.
+- Optional: Jetpack with the Stats module connected. Required only for the `job-views` block — if absent, the block renders nothing.
 
 ## Local install
 
@@ -43,11 +44,13 @@ jobswp-2025-theme/
 ├── templates/                      # block templates (HTML)
 ├── parts/                          # header.html, footer.html
 ├── patterns/                       # block patterns (PHP)
-├── blocks/                         # five dynamic blocks (see "Custom blocks" below)
+├── blocks/                         # dynamic blocks (see "Custom blocks" below)
 │   ├── job-browser/                # homepage: stats + filter pills + grid, Interactivity API
 │   ├── job-meta-card/              # single-job sidebar
 │   ├── archive-header/             # category / search archive header
 │   ├── job-list/                   # archive job list table
+│   ├── hero-stats/                 # homepage hero stats row
+│   ├── job-views/                  # "Seen by N candidates" — Jetpack Stats backed
 │   └── open-to-work-candidates/    # paginated wp.org "Open to Work" profiles grid
 ├── content-post-job.php            # classic template part (plugin couples to this path)
 ├── content-post-job-success.php    # classic template part (plugin couples to this path)
@@ -65,6 +68,7 @@ Every custom block in this theme has been audited against the Core block library
 | `archive-header` | Mixes `core/query-title`-style title rendering with a job-count, RSS link, and the column labels that head the `job-list` table. Could become a pattern + `core/query-title` once we're willing to inline the RSS link as a small helper. **Audit candidate for a follow-up PR.** |
 | `job-list` | Server-rendered table with a custom row layout (date / title / type / location). Could become `core/query` + `core/post-template` + `core/post-meta`, but the plugin's `jobswp_get_job_meta()` returns HTML for some fields (auto-linked locations) that `core/post-meta` doesn't render. **Audit candidate for a follow-up PR** that adds a `render_block_core/post-meta` filter. |
 | `job-meta-card` | Five plugin-meta fields on the single-job sidebar with a "skip the row if empty" rule. `core/post-meta` always renders a row even when the value is blank, so a custom block stays the cleanest option until Core grows conditional rendering. |
+| `job-views` | All-time view count for a single job, fetched from Jetpack Stats (`Automattic\Jetpack\Stats\WPCOM_Stats` → legacy `stats_get_csv` fallback) and cached in a 1-hour transient. Phrased as "Seen by N candidates" to frame popularity as candidate interest. Hides itself on the frontend when Stats is unavailable or the count is below the configurable `hideBelow` threshold; in the Site Editor it falls back to a "Connect Jetpack" placeholder so the dependency is discoverable at insertion time. No Core equivalent — Jetpack Stats has no first-party block for per-post views. |
 | `open-to-work-candidates` | External REST call to `profiles.wordpress.org` plus its own pagination. Out of scope for `core/query` (different post-type / external data). |
 
 Three former blocks were replaced once the audit confirmed they were doing nothing Core didn't already handle:
