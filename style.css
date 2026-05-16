@@ -1097,6 +1097,22 @@ label {
 	}
 }
 
+/* Job Views block */
+.job-views {
+	color: var(--color-charcoal-4);
+	font-size: 0.95em;
+}
+
+.job-views__count {
+	font-weight: 600;
+	color: inherit;
+}
+
+.job-views__prefix,
+.job-views__noun {
+	font-weight: 400;
+}
+
 
 /* ============================================
    Form Page (Post a Job)

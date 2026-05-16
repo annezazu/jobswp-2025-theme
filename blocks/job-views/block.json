@@ -1,0 +1,40 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "jobswp-2025/job-views",
+	"title": "Job Views",
+	"category": "theme",
+	"description": "All-time view count for a single job listing, powered by Jetpack Stats.",
+	"textdomain": "jobswp-2025",
+	"usesContext": ["postId", "postType"],
+	"attributes": {
+		"prefix": {
+			"type": "string",
+			"default": "Seen by"
+		},
+		"noun": {
+			"type": "string",
+			"default": "candidates"
+		},
+		"hideBelow": {
+			"type": "number",
+			"default": 0
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": false,
+		"inserter": true,
+		"color": {
+			"text": true,
+			"background": false
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"fontStyle": true,
+			"fontWeight": true
+		}
+	},
+	"render": "file:./render.php"
+}

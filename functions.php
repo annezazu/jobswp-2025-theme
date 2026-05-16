@@ -273,9 +273,34 @@ function jobswp_2025_enqueue_block_editor_assets() {
 			'wp-hooks',
 			'wp-dom-ready',
 			'wp-server-side-render',
+			'wp-components',
+			'wp-i18n',
 		),
 		filemtime( $editor_js ),
 		true
 	);
+
+	// Expose dependency status so the job-views block can render a
+	// "Connect Jetpack" placeholder in the editor instead of an empty
+	// ServerSideRender preview when Stats isn't available.
+	wp_add_inline_script(
+		'jobswp-2025-editor-blocks',
+		'window.jobswp2025 = ' . wp_json_encode( array(
+			'hasJetpackStats' => jobswp_2025_has_jetpack_stats(),
+		) ) . ';',
+		'before'
+	);
+}
+
+/**
+ * Whether a Jetpack Stats source is available for per-post view counts.
+ * Used by the editor to decide whether to preview the Job Views block or
+ * show a dependency-missing placeholder.
+ *
+ * @return bool
+ */
+function jobswp_2025_has_jetpack_stats() {
+	return class_exists( '\Automattic\Jetpack\Stats\WPCOM_Stats' )
+		|| function_exists( 'stats_get_csv' );
 }
 add_action( 'enqueue_block_editor_assets', 'jobswp_2025_enqueue_block_editor_assets' );
